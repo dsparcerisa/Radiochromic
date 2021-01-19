@@ -3,6 +3,8 @@ import { ActionSheetController, PopoverController } from '@ionic/angular';
 import { Photo } from '../models/photo.interface';
 import { PhotoService } from '../services/photo.service';
 import { PopoverPage } from '../tab2-popover/tab2-popover';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tab2',
@@ -13,7 +15,10 @@ export class Tab2Page {
   public photos: Photo[]=[];
   
   constructor(private photoSvc: PhotoService, 
+
+
               public actionSheetController: ActionSheetController,
+              private router: Router,
               public popoverCtrl: PopoverController) {}
 
   ngOnInit(){
@@ -33,7 +38,12 @@ export class Tab2Page {
         text: 'Scan',
         icon: 'scan',
         handler: () => {
-          this.photoSvc.Scan(photo, position);
+          console.log(photo)
+          this.photoSvc.setSharedPhoto(photo);
+          this.router.navigate(['/tabs/tab3']);
+          // this.canvasDraw.loadImage(photo, position)
+          // this.canvasDraw.photoLoad = photo;
+          
         }
       },{
         text: 'Delete',
